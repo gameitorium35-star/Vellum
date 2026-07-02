@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vellum — Premium Themes for Claude & ChatGPT</title>
+  <meta name="description" content="52 handcrafted themes with animated backgrounds for Claude and ChatGPT. One click, both platforms. 7-day Pro trial, no data collected.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+
+    :root {
+      --bg: #09090b;
+      --bg-2: #0c0c0f;
+      --surface: #111113;
+      --surface-2: #16161b;
+      --border: #1e1e22;
+      --border-2: #2a2a31;
+      --text: #f4f3f5;
+      --muted: #8f8f95;
+      --dim: #56565d;
+      --accent: #d4a574;
+      --accent-2: #e8c79c;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* faint film grain for a premium tactile feel */
+    body::after {
+      content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 28px; position: relative; }
+
+    /* reveal-on-scroll */
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* ── NAV ── */
+    nav {
+      padding: 20px 0;
+      display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(9,9,11,0.72);
+      backdrop-filter: saturate(140%) blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner { max-width: 1080px; margin: 0 auto; padding: 0 28px; width: 100%;
+      display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand {
+      font-size: 19px; font-weight: 600; letter-spacing: -0.5px;
+      display: flex; align-items: center; gap: 9px;
+    }
+    .nav-dot {
+      width: 16px; height: 16px; border-radius: 5px;
+      background: linear-gradient(135deg, var(--accent-2), var(--accent));
+      box-shadow: 0 0 16px rgba(212,165,116,0.5);
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 26px;
+      font-size: 13.5px; color: var(--muted);
+    }
+    .nav-links a:not(.nav-cta):hover { color: var(--text); }
+    .nav-cta {
+      background: var(--text); color: var(--bg);
+      padding: 9px 18px; border-radius: 9px;
+      font-weight: 600; font-size: 13px;
+      transition: all 0.18s;
+    }
+    .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+    @media (max-width: 640px) { .nav-links a:not(.nav-cta) { display: none; } }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding: 120px 0 100px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      z-index: 0; opacity: 0.55;
+      -webkit-mask-image: radial-gradient(120% 90% at 50% 30%, #000 35%, transparent 78%);
+      mask-image: radial-gradient(120% 90% at 50% 30%, #000 35%, transparent 78%);
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: 'DM Mono', monospace;
+      font-size: 11.5px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--border-2); border-radius: 100px;
+      padding: 7px 15px; margin-bottom: 28px;
+      background: rgba(212,165,116,0.05);
+    }
+    .hero-tag .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+      box-shadow: 0 0 8px var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.35; } }
+    .hero h1 {
+      font-size: clamp(44px, 6.4vw, 76px);
+      font-weight: 600;
+      letter-spacing: -2.5px;
+      line-height: 1.04;
+      margin-bottom: 24px;
+    }
+    .hero h1 .grad {
+      background: linear-gradient(110deg, #ffffff 20%, var(--accent-2) 60%, var(--accent) 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p {
+      font-size: 18px; color: var(--muted);
+      max-width: 560px; margin: 0 auto 38px;
+      line-height: 1.65;
+    }
+    .hero-buttons { display: flex; gap: 13px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      padding: 13px 26px; border-radius: 11px;
+      font-size: 14.5px; font-weight: 600;
+      cursor: pointer; transition: all 0.18s; border: none;
+    }
+    .btn-primary {
+      background: var(--text); color: var(--bg);
+      box-shadow: 0 8px 30px rgba(212,165,116,0.18);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 38px rgba(212,165,116,0.30); }
+    .btn-outline {
+      background: rgba(255,255,255,0.02); color: var(--text);
+      border: 1px solid var(--border-2);
+    }
+    .btn-outline:hover { border-color: var(--muted); background: rgba(255,255,255,0.04); }
+
+    .hero-trust {
+      display: flex; gap: 22px; justify-content: center; flex-wrap: wrap;
+      margin-top: 34px; font-size: 13px; color: var(--dim);
+    }
+    .hero-trust span { display: inline-flex; align-items: center; gap: 7px; }
+    .hero-trust .tick { color: var(--accent); font-weight: 700; }
+
+    /* ── SECTION SHELL ── */
+    section.block { padding: 90px 0; border-bottom: 1px solid var(--border); position: relative; }
+    .section-head { margin-bottom: 46px; }
+    .section-head.row { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; }
+    .eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 14px;
+    }
+    .section-head h2 { font-size: clamp(28px, 4vw, 38px); font-weight: 600; letter-spacing: -1.2px; line-height: 1.1; }
+    .section-head .sub { font-size: 15px; color: var(--muted); margin-top: 10px; max-width: 460px; }
+
+    /* ── GET STARTED ── */
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .step {
+      position: relative; padding: 30px 26px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .step:hover { transform: translateY(-3px); border-color: var(--border-2); }
+    .step-num {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'DM Mono', monospace; font-size: 14px; font-weight: 500;
+      background: rgba(212,165,116,0.1); color: var(--accent);
+      border: 1px solid rgba(212,165,116,0.25);
+      margin-bottom: 18px;
+    }
+    .step h3 { font-size: 17px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 8px; }
+    .step p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+    .step.key {
+      background: linear-gradient(180deg, rgba(212,165,116,0.08), rgba(212,165,116,0.02));
+      border-color: rgba(212,165,116,0.35);
+      box-shadow: 0 0 0 1px rgba(212,165,116,0.06), 0 18px 50px rgba(212,165,116,0.06);
+    }
+    .step .badge-imp {
+      position: absolute; top: 22px; right: 22px;
+      font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+      color: var(--accent); border: 1px solid rgba(212,165,116,0.3); border-radius: 5px;
+      padding: 3px 7px;
+    }
+    .step.key .step-num { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+    .darknote {
+      margin-top: 22px; display: flex; gap: 14px; align-items: flex-start;
+      padding: 18px 20px; border-radius: 14px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-left: 2px solid var(--accent);
+    }
+    .darknote .ico { font-size: 18px; line-height: 1.4; }
+    .darknote p { font-size: 13.5px; color: var(--muted); }
+    .darknote strong { color: var(--text); font-weight: 600; }
+
+    /* ── THEME GRID ── */
+    .grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; border-radius: 14px; overflow: hidden; }
+    .cell {
+      aspect-ratio: 1; position: relative; cursor: default;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .cell:hover { transform: scale(1.12); z-index: 3; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border-radius: 6px; }
+    .cell-name {
+      position: absolute; bottom: 4px; left: 5px;
+      font-family: 'DM Mono', monospace;
+      font-size: 7px; letter-spacing: 0.4px; text-transform: uppercase;
+      color: rgba(255,255,255,0.78);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.6);
+    }
+    .cell-pro {
+      position: absolute; top: 3px; right: 3px;
+      font-family: 'DM Mono', monospace;
+      font-size: 6px; letter-spacing: 0.4px; text-transform: uppercase;
+      color: var(--accent); background: rgba(0,0,0,0.5);
+      padding: 1px 4px; border-radius: 3px;
+    }
+
+    /* ── FEATURES ── */
+    .features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .feature {
+      padding: 30px 26px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 16px;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .feature:hover { transform: translateY(-3px); border-color: var(--border-2); }
+    .feature .ico {
+      width: 42px; height: 42px; border-radius: 12px; margin-bottom: 18px;
+      display: flex; align-items: center; justify-content: center; font-size: 20px;
+      background: rgba(212,165,116,0.08); border: 1px solid rgba(212,165,116,0.2);
+    }
+    .feature h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 8px; }
+    .feature p { font-size: 14px; color: var(--muted); line-height: 1.6; }
+
+    /* ── PRICING ── */
+    .price-cards {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px;
+      background: var(--border); border-radius: 18px; overflow: hidden;
+    }
+    .price-card { background: var(--bg-2); padding: 38px 28px; display: flex; flex-direction: column; }
+    .price-card.featured { background: var(--surface); position: relative; }
+    .price-card.featured::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(120% 60% at 50% 0%, rgba(212,165,116,0.08), transparent 70%);
+    }
+    .price-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--dim); margin-bottom: 8px; position: relative;
+    }
+    .price-label.pop { color: var(--accent); }
+    .price-name { font-size: 22px; font-weight: 600; letter-spacing: -0.5px; margin-bottom: 20px; position: relative; }
+    .price-amount { font-size: 50px; font-weight: 600; letter-spacing: -2.5px; line-height: 1; margin-bottom: 4px; position: relative; }
+    .price-period { font-size: 13px; color: var(--muted); margin-bottom: 28px; position: relative; }
+    .price-list { list-style: none; flex: 1; margin-bottom: 28px; position: relative; }
+    .price-list li {
+      padding: 9px 0 9px 24px; position: relative;
+      font-size: 13.5px; color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    .price-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    .price-list li:last-child { border-bottom: 1px solid var(--border); }
+    .price-btn {
+      display: block; text-align: center; padding: 13px; border-radius: 11px;
+      font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.18s;
+      border: 1px solid var(--border-2); background: transparent; color: var(--text); position: relative;
+    }
+    .price-btn:hover { background: var(--surface-2); border-color: var(--muted); }
+    .price-btn.primary { background: var(--text); color: var(--bg); border-color: var(--text); box-shadow: 0 8px 26px rgba(212,165,116,0.18); }
+    .price-btn.primary:hover { transform: translateY(-2px); box-shadow: 0 12px 34px rgba(212,165,116,0.28); }
+
+    /* ── CTA STRIP ── */
+    .cta {
+      text-align: center; padding: 96px 0;
+      border-bottom: 1px solid var(--border); position: relative; overflow: hidden;
+    }
+    .cta::before {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(600px 300px at 50% 120%, rgba(212,165,116,0.12), transparent 70%);
+    }
+    .cta h2 { font-size: clamp(30px, 4.5vw, 44px); font-weight: 600; letter-spacing: -1.5px; margin-bottom: 16px; position: relative; }
+    .cta p { color: var(--muted); font-size: 16px; margin-bottom: 30px; position: relative; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 44px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; color: var(--dim);
+    }
+    footer .f-links a { color: var(--muted); margin-left: 24px; }
+    footer .f-links a:hover { color: var(--text); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 820px) {
+      .steps, .features, .price-cards { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: repeat(6, 1fr); }
+      .hero { padding: 80px 0 70px; }
+      section.block { padding: 64px 0; }
+      footer { flex-direction: column; gap: 14px; }
+      footer .f-links a { margin: 0 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-inner">
+      <span class="nav-brand"><span class="nav-dot"></span>Vellum</span>
+      <div class="nav-links">
+        <a href="#start">Setup</a>
+        <a href="#themes">Themes</a>
+        <a href="#pricing">Pricing</a>
+        <a href="https://chrome.google.com/webstore" target="_blank" class="nav-cta">Add to Chrome</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="wrap hero-inner">
+      <div class="hero-tag"><span class="pulse"></span>Vellum for Claude &amp; ChatGPT</div>
+      <h1>A premium look for<br><span class="grad">your AI workspace.</span></h1>
+      <p>52 handcrafted themes with living, animated backgrounds — from quiet dark modes to cherry blossoms, aurora, and a tiny T‑Rex. One click, both platforms.</p>
+      <div class="hero-buttons">
+        <a href="https://chrome.google.com/webstore" target="_blank" class="btn btn-primary">Add to Chrome — Free</a>
+        <a href="#themes" class="btn btn-outline">Browse all 52 themes</a>
+      </div>
+      <div class="hero-trust">
+        <span><span class="tick">✓</span> 7-day Pro trial</span>
+        <span><span class="tick">✓</span> Works on Claude &amp; ChatGPT</span>
+        <span><span class="tick">✓</span> No data collected</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap">
+
+    <section class="block reveal" id="start">
+      <div class="section-head">
+        <div class="eyebrow">Getting started</div>
+        <h2>Up and running in 30 seconds.</h2>
+        <p class="sub">Three quick steps — and one that really matters.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Add to Chrome</h3>
+          <p>Install Vellum free from the Chrome Web Store. It works on both Claude and ChatGPT — no account or setup needed.</p>
+        </div>
+        <div class="step key">
+          <span class="badge-imp">Important</span>
+          <div class="step-num">2</div>
+          <h3>Turn on dark mode</h3>
+          <p>In Claude or ChatGPT settings, set appearance to <strong>Dark</strong>. Vellum's themes are crafted for dark mode — on light mode they'll look washed out.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Pick a theme</h3>
+          <p>Click the Vellum icon in your toolbar, choose any theme, and it applies instantly across the whole interface.</p>
+        </div>
+      </div>
+      <div class="darknote">
+        <span class="ico">🌙</span>
+        <p><strong>Why dark mode?</strong> Vellum's animated backgrounds and palettes are designed to glow against a dark interface. If a theme looks faded, you're still in light mode — switch your AI app to Dark in its appearance settings and it'll come alive.</p>
+      </div>
+    </section>
+
+    <section class="block reveal" id="themes">
+      <div class="section-head row">
+        <div>
+          <div class="eyebrow">The collection</div>
+          <h2>All 52 themes.</h2>
+        </div>
+        <p class="sub" style="margin:0">12 free · 40 Pro</p>
+      </div>
+      <div class="grid" id="theme-grid"></div>
+    </section>
+
+    <section class="block reveal">
+      <div class="section-head">
+        <div class="eyebrow">Why Vellum</div>
+        <h2>Crafted, not generated.</h2>
+      </div>
+      <div class="features">
+        <div class="feature">
+          <div class="ico">⚡</div>
+          <h3>One click, instant</h3>
+          <p>Pick a theme and it applies at once — sidebar, composer, buttons, scrollbars. The entire interface, retuned.</p>
+        </div>
+        <div class="feature">
+          <div class="ico">🎐</div>
+          <h3>Living backgrounds</h3>
+          <p>Cherry blossoms, northern lights, rising embers, a retro synthwave grid. Subtle enough to work against, striking enough to enjoy.</p>
+        </div>
+        <div class="feature">
+          <div class="ico">🔒</div>
+          <h3>Truly private</h3>
+          <p>No tracking, analytics, or telemetry. Everything runs in your browser; only your theme choice syncs through Chrome.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="block reveal" id="pricing">
+      <div class="section-head">
+        <div class="eyebrow">Pricing</div>
+        <h2>Start free. Go Pro when you're ready.</h2>
+        <p class="sub">Every install starts with a 7-day Pro trial. Keep 12 themes free forever, or unlock all 52.</p>
+      </div>
+      <div class="price-cards">
+        <div class="price-card">
+          <div class="price-label">Free</div>
+          <div class="price-name">Starter</div>
+          <div class="price-amount">$0</div>
+          <div class="price-period">Forever, no card needed</div>
+          <ul class="price-list">
+            <li>12 refined themes</li>
+            <li>7-day Pro trial included</li>
+            <li>Claude &amp; ChatGPT</li>
+            <li>Syncs across devices</li>
+            <li>No tracking</li>
+          </ul>
+          <a href="https://chrome.google.com/webstore" target="_blank" class="price-btn">Add to Chrome</a>
+        </div>
+        <div class="price-card featured">
+          <div class="price-label pop">Most popular</div>
+          <div class="price-name">Pro Monthly</div>
+          <div class="price-amount">$2.99</div>
+          <div class="price-period">Per month, cancel any time</div>
+          <ul class="price-list">
+            <li>All 52 themes</li>
+            <li>Animated backgrounds</li>
+            <li>Future themes included</li>
+            <li>Cancel any time</li>
+          </ul>
+          <button onclick="checkout('monthly')" class="price-btn primary">Get Pro</button>
+        </div>
+        <div class="price-card">
+          <div class="price-label">Best value</div>
+          <div class="price-name">Lifetime</div>
+          <div class="price-amount">$17.99</div>
+          <div class="price-period">One payment, yours forever</div>
+          <ul class="price-list">
+            <li>Everything in Pro</li>
+            <li>All future themes</li>
+            <li>Save 70% over time</li>
+            <li>14-day refund</li>
+          </ul>
+          <button onclick="checkout('lifetime')" class="price-btn">Get Lifetime</button>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <section class="cta reveal">
+    <div class="wrap">
+      <h2>Make Claude &amp; ChatGPT yours.</h2>
+      <p>52 themes. Two platforms. One click. Free to start.</p>
+      <a href="https://chrome.google.com/webstore" target="_blank" class="btn btn-primary">Add to Chrome — Free</a>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <footer>
+      <span>© 2026 Vellum</span>
+      <div class="f-links">
+        <a href="#start">Setup</a>
+        <a href="privacy.html">Privacy</a>
+        <a href="mailto:supportvellumapp@gmail.com">Contact</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function checkout(plan) {
+      const urls = {
+        monthly: 'https://buy.polar.sh/polar_cl_QANRl7HONQ42F6ZHVVmEyHpVYuAhm2COwBaAP2aATom',
+        lifetime: 'https://buy.polar.sh/polar_cl_wDJKnigy05JN0MxQ3q2zJTsPnElxKxnQ6ikdI3vvlGV'
+      };
+      window.open(urls[plan], '_blank');
+    }
+
+    const themes = [
+      {n:'Default',c:'linear-gradient(135deg,#1a1a1a,#2a2a2a)'},
+      {n:'Graphite',c:'linear-gradient(135deg,#161616,#2a2a2a)'},
+      {n:'Sage',c:'linear-gradient(135deg,#161a17,#2a3528)'},
+      {n:'Oat',c:'linear-gradient(135deg,#1a1816,#3a2d1f)'},
+      {n:'Slate',c:'linear-gradient(135deg,#13171c,#2a3540)'},
+      {n:'Drift',c:'linear-gradient(135deg,#0a0e18,#28324a)'},
+      {n:'Carbon',c:'linear-gradient(135deg,#0e0e0e,#2c2c2c)'},
+      {n:'Plum',c:'linear-gradient(135deg,#14101c,#3a2c5a)'},
+      {n:'Mocha',c:'linear-gradient(135deg,#161210,#3a2a1e)'},
+      {n:'Ember',c:'linear-gradient(135deg,#141008,#e8a44c)'},
+      {n:'Fog',c:'linear-gradient(135deg,#101214,#4a5060)'},
+      {n:'Pine',c:'linear-gradient(135deg,#0a100c,#2a4a30)'},
+      {n:'Sakura',c:'linear-gradient(135deg,#1a0f18,#4a2538)',p:1},
+      {n:'Aurora',c:'linear-gradient(135deg,#050d1a,#1a4a4a 50%,#4a2a5a)',p:1},
+      {n:'Midnight',c:'radial-gradient(circle,#2a3070,#06080f)',p:1},
+      {n:'Matrix',c:'linear-gradient(135deg,#000800,#003300)',p:1},
+      {n:'Forest',c:'linear-gradient(135deg,#0a1a0c,#1f4a28)',p:1},
+      {n:'Synthwave',c:'linear-gradient(180deg,#1a0a2e,#ff71ce 60%,#1a0218)',p:1},
+      {n:'Inferno',c:'linear-gradient(0deg,#ff6b35,#1a0805)',p:1},
+      {n:'Galaxy',c:'radial-gradient(circle at 60% 40%,#4a3a8a,#050514)',p:1},
+      {n:'Glacier',c:'linear-gradient(135deg,#0a1620,#7dd3fc)',p:1},
+      {n:'Vapor',c:'linear-gradient(135deg,#1a0a2e,#ff6ec7 50%,#7dd3fc)',p:1},
+      {n:'Velvet',c:'radial-gradient(circle at 70% 30%,#c084fc,#14081a)',p:1},
+      {n:'Ocean',c:'linear-gradient(180deg,#051420,#06b6d4)',p:1},
+      {n:'Neon',c:'radial-gradient(circle at 30% 50%,#ec4899,#0a0814)',p:1},
+      {n:'Cosmos',c:'radial-gradient(circle,#4f46e5,#000208)',p:1},
+      {n:'Dino',c:'linear-gradient(180deg,#181818,#2d2d2d)',p:1},
+      {n:'Stardust',c:'radial-gradient(#4a5878,#050810)',p:1},
+      {n:'Constel.',c:'radial-gradient(#4a6090,#06080f)',p:1},
+      {n:'Rainfall',c:'linear-gradient(180deg,#0a0f14,#67e8f9)',p:1},
+      {n:'Fireflies',c:'radial-gradient(circle at 70% 60%,#fde047,#0a0d0a)',p:1},
+      {n:'Lava',c:'linear-gradient(0deg,#ff6b00,#1a0808)',p:1},
+      {n:'Nebula',c:'radial-gradient(circle at 60% 40%,#d8b4fe,#050214)',p:1},
+      {n:'Storm',c:'linear-gradient(180deg,#050a14,#404a68)',p:1},
+      {n:'Mountains',c:'linear-gradient(180deg,#1a2540,#404a65)',p:1},
+      {n:'Lantern',c:'radial-gradient(circle at 50% 70%,#fbbf24,#0e0606)',p:1},
+      {n:'Vortex',c:'radial-gradient(circle,#a78bfa,#08041a)',p:1},
+      {n:'Origami',c:'linear-gradient(135deg,#0a0a14,#2a3050 50%,#0a0a14)',p:1},
+      {n:'Halo',c:'radial-gradient(circle at 50% 30%,#fde68a,#0a0a14)',p:1},
+      {n:'Twilight',c:'linear-gradient(180deg,#0a0518,#fcd34d)',p:1},
+      {n:'Petal',c:'linear-gradient(135deg,#0e0810,#fbb6ce 70%,#4a2840)',p:1},
+      {n:'Supernova',c:'radial-gradient(circle,#f59e0b,#08040a)',p:1},
+      {n:'Raindrop',c:'radial-gradient(circle at 40% 40%,#38bdf8,#080e14)',p:1},
+      {n:'Northern',c:'linear-gradient(180deg,#020c08,#4ade80 40%,#081a10)',p:1},
+      {n:'Embers',c:'linear-gradient(0deg,#ff7e3d,#140805)',p:1},
+      {n:'Snowfall',c:'linear-gradient(180deg,#0c1018,#bcd4e8)',p:1},
+      {n:'Bokeh',c:'radial-gradient(circle at 35% 40%,#c4a8f0,#0a0814)',p:1},
+      {n:'Meteor',c:'linear-gradient(135deg,#06060f,#8ea2ff)',p:1},
+      {n:'Abyss',c:'linear-gradient(180deg,#04101a,#3ec9d4)',p:1},
+      {n:'Plasma',c:'radial-gradient(circle at 60% 40%,#f06ec8,#0a0614)',p:1},
+      {n:'Sandstorm',c:'linear-gradient(135deg,#140f08,#e0b878)',p:1},
+      {n:'Prism',c:'radial-gradient(circle at 50% 50%,#b48cf0,#0a0a12)',p:1},
+    ];
+
+    const grid = document.getElementById('theme-grid');
+    themes.forEach(t => {
+      const d = document.createElement('div');
+      d.className = 'cell';
+      d.style.background = t.c;
+      d.innerHTML = `<span class="cell-name">${t.n}</span>${t.p ? '<span class="cell-pro">Pro</span>' : ''}`;
+      grid.appendChild(d);
+    });
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Hero particle field — subtle drifting constellation
+    (function () {
+      const cv = document.getElementById('hero-canvas');
+      if (!cv) return;
+      const cx = cv.getContext('2d');
+      let w, h, pts;
+      function size() {
+        w = cv.width = cv.offsetWidth;
+        h = cv.height = cv.offsetHeight;
+        const count = Math.min(70, Math.floor(w / 22));
+        pts = Array.from({ length: count }, () => ({
+          x: Math.random() * w, y: Math.random() * h,
+          vx: (Math.random() - 0.5) * 0.25, vy: (Math.random() - 0.5) * 0.25,
+          r: Math.random() * 1.4 + 0.5
+        }));
+      }
+      size();
+      window.addEventListener('resize', size);
+      function frame() {
+        cx.clearRect(0, 0, w, h);
+        for (let i = 0; i < pts.length; i++) {
+          const p = pts[i];
+          p.x += p.vx; p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+          cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          cx.fillStyle = 'rgba(212,165,116,0.5)'; cx.fill();
+          for (let j = i + 1; j < pts.length; j++) {
+            const q = pts[j], dx = p.x - q.x, dy = p.y - q.y;
+            const dist = Math.hypot(dx, dy);
+            if (dist < 120) {
+              cx.beginPath(); cx.moveTo(p.x, p.y); cx.lineTo(q.x, q.y);
+              cx.strokeStyle = `rgba(212,165,116,${0.12 * (1 - dist / 120)})`;
+              cx.lineWidth = 0.6; cx.stroke();
+            }
+          }
+        }
+        requestAnimationFrame(frame);
+      }
+      frame();
+    })();
+  </script>
+
+</body>
+</html>
