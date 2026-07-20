@@ -58,13 +58,16 @@
       <h2>What data does Vellum access?</h2>
       <p>Vellum injects CSS and a canvas animation into claude.ai and chatgpt.com to apply your chosen theme. It does not read, modify, or transmit any conversation content, personal information, or browsing activity.</p>
     </div>
-    <div class="section">
+        <div class="section">
       <h2>What is stored locally?</h2>
       <p>Your selected theme, Pro status, and license key (if applicable) are saved using Chrome's built-in sync storage. This data stays within your browser and syncs across your devices through your Google account. Vellum has no server and cannot access this data.</p>
+      <p>Vellum also stores a single flag in your browser on claude.ai and chatgpt.com recording when your free trial began. This exists only so that reinstalling the extension does not restart the trial. It contains no personal information and is never transmitted anywhere.</p>
     </div>
-    <div class="section">
+        <div class="section">
       <h2>License validation</h2>
-      <p>When you activate a Pro license key, Vellum sends the key to Polar's API (api.polar.sh) to verify it is valid. This is the only external network request the extension makes. No personal data is included in this request.</p>
+      <p>When you activate a Pro license key, Vellum sends the key to our own validation service (vellum-license.gameitorium35.workers.dev), which forwards it to Polar to confirm it is valid. Vellum re-checks the key periodically so that cancelled or expired subscriptions are reflected. No personal data is included in these requests.</p>
+      <p>If you enter a company access code, Vellum requests that company's theme configuration from our configuration host (weathered-pond-d21a.gameitorium35.workers.dev). The request contains only the code you entered.</p>
+      <p>These are the only external network requests the extension makes.</p>
     </div>
     <div class="section">
       <h2>Analytics and tracking</h2>
